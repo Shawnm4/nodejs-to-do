@@ -21,6 +21,10 @@ jobs:
         run: npm install
         working-directory: client
 
+      - name: Verify Client
+        run: ls -la
+        working-directory: client
+
       - name: Build Project
         run: npm run build
         working-directory: client
