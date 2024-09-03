@@ -19,12 +19,12 @@ jobs:
 
       - name: Install Dependencies In Client
         run: npm install
-        working-directory: client
+        working-directory: /client
 
       - name: Verify Client
         run: ls -la
-        working-directory: client
+        working-directory: /client
 
       - name: Build Project
         run: npm run build
-        working-directory: client
+        working-directory: /client
