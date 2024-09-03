@@ -13,8 +13,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-      - run: npm install
-      - run: cd client && npm run build
 
       - name: Install Dependencies
         run: npm install
