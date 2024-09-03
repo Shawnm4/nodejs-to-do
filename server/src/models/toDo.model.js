@@ -1,12 +1,16 @@
+const mongoDataBase = require("./toDo.mongo");
+
 const _ = require("lodash");
 
 const toDosArray = [];
 
-function addId(obj) {
+function addIdAndToDoStatus(obj) {
   const newObj = {
     ...obj,
     id: _.uniqueId(),
+    completed: false,
   };
+
   return newObj;
 }
 
@@ -14,19 +18,35 @@ function addToDoObj(toDoObj) {
   return toDosMap.set(toDoObj.id, toDoObj);
 }
 
-function deleteToDo(toDosArray, key, id) {
+function setToDoFalse(toDosArray, key, id) {
   const objToBeDeleted = toDosArray.find((obj) => obj[key] === id);
-  const indexToBeDeleted = toDosArray.findIndex((obj) => obj[key] === id);
-  console.log(toDosArray[indexToBeDeleted]);
-  if (indexToBeDeleted !== -1) {
-    toDosArray.splice(indexToBeDeleted, 1);
+
+  if (objToBeDeleted) {
+    console.log(objToBeDeleted["completed"]);
+    objToBeDeleted["completed"] = false;
+    console.log(objToBeDeleted);
   }
   return objToBeDeleted;
 }
 
+async function addToMongoDb(toDoObj) {
+  console.log(`Adding this to data base: ${JSON.stringify(toDoObj)}`);
+  return await mongoDataBase.updateOne(
+    {
+      id: toDoObj.id,
+    },
+    {
+      toDoObj,
+    },
+    {
+      upsert: true,
+    }
+  );
+}
 module.exports = {
   toDosArray,
-  addId,
+  addIdAndToDoStatus,
   addToDoObj,
-  deleteToDo,
+  setToDoFalse,
+  addToMongoDb,
 };
