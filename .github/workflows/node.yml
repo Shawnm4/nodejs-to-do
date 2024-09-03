@@ -14,13 +14,15 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install Dependencies
+      - name: Install Dependencies In Root
         run: npm install
-        working-directory: client
 
-      - name: Verify Client Directory
-        run: ls -la client
+      - name: Install Dependencies In Client
+        run: |
+          cd client
+          npm install
 
       - name: Build Project
-        run: npm run build
-        working-directory: client
+        run: |
+          cd client
+          npm run build
