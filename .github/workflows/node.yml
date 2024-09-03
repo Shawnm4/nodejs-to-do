@@ -13,18 +13,5 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-
-      - name: Install Dependencies In Root
-        run: npm install
-
-      - name: Install Dependencies In Client
-        run: npm install
-        working-directory: client
-
-      - name: Verify Client
-        run: ls -la
-        working-directory: client
-
-      - name: Build Project
-        run: npm run build
-        working-directory: client
+      - run: npm install
+      - run: npm run build --prefix client
