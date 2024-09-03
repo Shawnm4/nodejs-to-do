@@ -14,4 +14,15 @@ jobs:
         with:
           node-version: "20"
       - run: npm install
-      - run: npm run build --prefix client
+      - run: cd client && npm run build
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: client
+
+      - name: Verify Client Directory
+        run: ls -la client
+
+      - name: Build Project
+        run: npm run build
+        working-directory: client
