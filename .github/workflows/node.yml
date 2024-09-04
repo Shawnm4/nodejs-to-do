@@ -20,6 +20,10 @@ jobs:
           node-version: ${{matrix.node-version}}
       - run: npm install
 
+      - name: Verify package.json
+        run: ls -la
+        working-directory: ./client
+
       - name: Install Dependencies
         run: npm install
         working-directory: ./client
